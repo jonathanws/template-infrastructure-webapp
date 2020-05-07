@@ -19,6 +19,12 @@ const api = axios.create({
 	timeout: 30 * SECONDS,
 })
 
+// Types of tortillas
+const tortillas = {
+	CORN: 'corn',
+	FLOUR: 'flour',
+}
+
 // Taco flavors
 const flavors = {
 	BEEF: 'beef',
@@ -29,4 +35,4 @@ const flavors = {
 // Current version.  Should be incremented and matched with package.json
 const VERSION = '1.0.0'
 
-export { api, flavors, VERSION }
+export { api, tortillas, flavors, VERSION }

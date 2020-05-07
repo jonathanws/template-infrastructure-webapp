@@ -14,7 +14,7 @@
 				<span v-for="(taco, index) in numTacos" :key="index">🌮</span>
 			</div>
 
-			<div>
+			<div class="buttons">
 				<button @click="decrement">👎</button>
 				<button @click="increment">👍</button>
 			</div>
@@ -26,7 +26,6 @@
 import fn from '@/vuex/functions'
 
 export default {
-	data: () => ({}),
 	computed: {
 		numTacos() {
 			return this.$store.state.tacos
@@ -52,44 +51,36 @@ export default {
 .taco-counter {
 }
 
-.card {
-	// display: inline-flex;
-	// align-items: center;
-	display: inline-block;
-}
-
 b {
 	margin: 0 6px;
-	text-align: center;
 }
 
-span:last-of-type {
-	margin-right: 26px;
-}
-
-$button-size: 35px;
 button {
-	border: 0;
 	border-radius: $border-radius;
 	padding: 8px;
-	font-size: 14px;
-	min-height: $button-size;
-	min-width: $button-size;
-	color: black;
-	border: 1px solid $accent-color;
+	font-size: 1rem;
+	background: none;
+	width: 48px;
+	border: 2px solid $accent-color;
 	outline: 0;
 	user-select: none;
 
 	&:hover {
 		background-color: $accent-color;
-		color: white;
 		cursor: pointer;
 	}
 	&:active {
 		background-color: $accent-color-darker;
 	}
-	&:not(:last-child) {
-		margin-right: 12px;
+}
+
+.buttons {
+	display: flex;
+	> * {
+		flex-grow: 1;
+	}
+	:not(:last-child) {
+		margin-right: 16px;
 	}
 }
 
@@ -101,6 +92,12 @@ button {
 		&:not(:last-child) {
 			margin-right: 20px;
 		}
+	}
+}
+
+@include for-size($tablet-portrait-up) {
+	.buttons {
+		display: block;
 	}
 }
 </style>

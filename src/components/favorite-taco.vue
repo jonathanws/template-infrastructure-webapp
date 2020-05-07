@@ -5,7 +5,8 @@
 			<a href="https://vuex.vuejs.org/guide/actions.html">Actions</a>
 		</h3>
 
-		<div class="card">
+		<div class="card" :class="{ loading }">
+			<div v-if="loading" class="loader-ring"></div>
 			<div>Favorite taco:</div>
 
 			<button
@@ -23,8 +24,6 @@
 				:class="{ selected: isPorkSelected }"
 				:disabled="loading"
 			>🐷</button>
-
-			<i v-if="loading">Loading...</i>
 		</div>
 	</div>
 </template>
@@ -81,7 +80,8 @@ button {
 .card {
 	display: flex;
 	align-items: center;
-	> * {
+	position: relative;
+	> :not(.loader-ring) {
 		margin-right: 16px;
 	}
 }
@@ -89,5 +89,37 @@ button {
 .selected {
 	background-color: $accent-color;
 	color: white;
+}
+
+$loader-size: 48px;
+.loader-ring {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: $border-radius;
+	&:after {
+		content: ' ';
+		display: block;
+		width: $loader-size;
+		height: $loader-size;
+		border-radius: 50%;
+		border: 6px solid $accent-color;
+		border-color: $accent-color transparent $accent-color transparent;
+		animation: loader-ring 1s linear infinite;
+	}
+}
+@keyframes loader-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 </style>

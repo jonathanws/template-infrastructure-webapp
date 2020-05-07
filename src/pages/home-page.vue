@@ -3,17 +3,21 @@
 		<taco-counter />
 
 		<favorite-taco />
+
+		<pass-taco-parent />
 	</div>
 </template>
 
 <script>
 import favoriteTaco from '../components/favorite-taco'
+import passTacoParent from '../components/pass-taco-parent'
 import tacoCounter from '../components/taco-counter'
 
 export default {
 	name: 'homePage',
 	components: {
 		favoriteTaco,
+		passTacoParent,
 		tacoCounter,
 	},
 }

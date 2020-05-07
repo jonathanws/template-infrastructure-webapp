@@ -24,6 +24,10 @@ span {
 }
 a {
 	text-decoration: none;
+	color: $accent-color-darker;
+	&:visited {
+		color: $accent-color-darker;
+	}
 }
 h1 {
 	margin: 16px;
