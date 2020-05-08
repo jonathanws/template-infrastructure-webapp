@@ -2,7 +2,7 @@
 	<div class="taco-counter">
 		<h3>
 			Set your tacos in
-			<a href="https://vuex.vuejs.org/guide/state.html">State</a>
+			<a href="https://vuex.vuejs.org/guide/state.html" target="_blank">State</a>
 		</h3>
 
 		<div class="card">

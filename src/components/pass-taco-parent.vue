@@ -4,6 +4,7 @@
 			Pass data from parent to child via
 			<a
 				href="https://vuejs.org/v2/guide/components-props.html"
+				target="_blank"
 			>Props</a>
 		</h3>
 

@@ -3,6 +3,7 @@
 // These box-sizing calls reset how all element's dimensions are calculated
 html {
 	box-sizing: border-box;
+	height: 100%;
 }
 *,
 *:before,
@@ -16,7 +17,7 @@ html {
 }
 
 body {
-	height: 100vh;
+	height: 100%;
 	margin: 0;
 }
 span {

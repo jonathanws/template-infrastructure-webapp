@@ -1,5 +1,7 @@
 <template>
 	<div class="home-page">
+		<welcome-summary />
+
 		<taco-counter />
 
 		<favorite-taco />
@@ -12,6 +14,7 @@
 import favoriteTaco from '../components/favorite-taco'
 import passTacoParent from '../components/pass-taco-parent'
 import tacoCounter from '../components/taco-counter'
+import welcomeSummary from '../components/welcome-summary'
 
 export default {
 	name: 'homePage',
@@ -19,6 +22,7 @@ export default {
 		favoriteTaco,
 		passTacoParent,
 		tacoCounter,
+		welcomeSummary,
 	},
 }
 </script>

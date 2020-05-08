@@ -2,7 +2,10 @@
 	<div class="favorite-taco">
 		<h3>
 			Set your tacos asynchronously with
-			<a href="https://vuex.vuejs.org/guide/actions.html">Actions</a>
+			<a
+				href="https://vuex.vuejs.org/guide/actions.html"
+				target="_blank"
+			>Actions</a>
 		</h3>
 
 		<div class="card" :class="{ loading }">

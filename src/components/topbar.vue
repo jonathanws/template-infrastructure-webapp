@@ -1,7 +1,7 @@
 <template>
 	<div class="topbar">
-		<div class="logo">
-			<router-link :to="pages.HOME">
+		<div class="logo link">
+			<router-link :to="pages.HOME" tag="div">
 				<h2>Vue Starter</h2>
 			</router-link>
 		</div>
@@ -47,36 +47,30 @@ export default {
 }
 
 .logo {
-	a {
-		display: flex;
-		align-items: center;
-	}
-	i {
 		color: $accent-color;
 	}
-	h2 {
-		display: none;
-		margin-left: 16px;
-	}
-}
 
 .links {
-	// border: 1px solid green;
+	display: flex;
+	justify-content: flex-end;
 	flex-grow: 1;
 	.link {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		padding: 8px;
-		border-radius: $border-radius;
+		padding: 16px;
+		// When the link matches the view the user is currently viewing
+		&.router-link-exact-active {
+			$border-size: 6px;
+			border-bottom: $border-size solid $accent-color;
+			margin-top: $border-size;
+		}
+	}
+}
+
+.link {
 		&:hover {
 			cursor: pointer;
 		}
-		div {
-			display: none;
-			margin-left: 12px;
-		}
-	}
 }
 
 // @include for-size($tablet-portrait-up) {
