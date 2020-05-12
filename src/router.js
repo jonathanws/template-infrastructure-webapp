@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import homePage from '@/pages/home-page.vue'
 import pageNotFound from '@/pages/page-not-found-page.vue'
-import settingsPage from '@/pages/settings-page'
+import modulesPage from '@/pages/modules-page'
 
 import { pages } from '@/constants/paths.js'
 
@@ -17,8 +17,8 @@ const router = new Router({
 			meta: { align: 'center' },
 		},
 		{
-			path: pages.SETTINGS,
-			component: settingsPage,
+			path: pages.MODULES,
+			component: modulesPage,
 			meta: { align: 'center' },
 		},
 		/*

@@ -5,8 +5,6 @@
  */
 import { api } from '@/constants/globals.constant'
 
-export { eatTaco, getTaco, getAllTacos, makeTaco, updateTaco }
-
 /**
  * This backend object consists of nothing but calls to related routes on our backend.
  * To use this object, create another function that makes use of these function calls.
@@ -14,15 +12,10 @@ export { eatTaco, getTaco, getAllTacos, makeTaco, updateTaco }
  * similar functionality grouped together
  */
 const backend = {
-	//	GET		/tacos/{tacoId}
 	getTaco: (tacoId) => api.get(`/tacos/${tacoId}`),
-	//	GET		/tacos
 	getTacos: () => api.get('/tacos'),
-	//	DELETE	/tacos/{tacoId}
 	deleteTaco: (tacoId) => api.delete(`/tacos/${tacoId}`),
-	//	POST	/tacos
 	createTaco: (ingredients) => api.post('/tacos', ingredients),
-	//	POST	/taco
 	updateTaco: (tacoId, updates) => api.post(`/taco/${tacoId}`, updates),
 }
 
@@ -34,28 +27,10 @@ const backend = {
 const eatTaco = async (tacoId) => {
 	if (tacoId) {
 		// Try / catch is not needed here because we aren't sending anything back if we hit an error
-		await backend.deleteTaco()
+		await backend.deleteTaco(tacoId)
 	} else {
 		console.error('No taco ID specified.')
 	}
-}
-
-/**
- * Gets a single taco
- *
- * @param {Number} tacoId - ID of the taco to get
- */
-const getTaco = async (tacoId) => {
-	let res
-
-	try {
-		res = await backend.getTaco(tacoId)
-	} catch (e) {
-		console.error(e)
-		res = {}
-	}
-
-	return res
 }
 
 /**
@@ -71,6 +46,27 @@ const getAllTacos = async () => {
 	} catch (e) {
 		console.error(e)
 		res = []
+	}
+
+	return res
+}
+
+/**
+ * Gets a single taco
+ *
+ * @param {Number} tacoId - ID of the taco to get
+ */
+const getTaco = async (tacoId) => {
+	let res = {}
+
+	if (tacoId) {
+		try {
+			res = await backend.getTaco(tacoId)
+		} catch (e) {
+			console.error(e)
+		}
+	} else {
+		console.error('No taco ID specified')
 	}
 
 	return res
@@ -111,7 +107,7 @@ const makeTaco = async (ingredients) => {
  * @param {Boolean} ingredients.tortilla
  * @param {Number} tacoId - ID of the taco to update
  */
-const updateTaco = async (ingredients, tacoId) => {
+const updateTaco = async (tacoId, ingredients) => {
 	if (tacoId && ingredients) {
 		// Try / catch is not needed here because we aren't sending anything back if we hit an error
 		await backend.updateTaco(tacoId, ingredients)
@@ -124,3 +120,5 @@ const updateTaco = async (ingredients, tacoId) => {
 		}
 	}
 }
+
+export { eatTaco, getAllTacos, getTaco, makeTaco, updateTaco }

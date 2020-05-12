@@ -9,7 +9,7 @@ import axios from 'axios'
 
 // api
 const key = process.env.VUE_APP_BACKEND_KEY
-const baseURL = process.env.VUE_APP_BACKEND_BASEURL
+const baseURL = process.env.VUE_APP_BACKEND_BASEURL || 'no-default-baseurl-set'
 const SECONDS = 1000
 const api = axios.create({
 	baseURL,
@@ -19,12 +19,6 @@ const api = axios.create({
 	timeout: 30 * SECONDS,
 })
 
-// Types of tortillas
-const tortillas = {
-	CORN: 'corn',
-	FLOUR: 'flour',
-}
-
 // Taco flavors
 const flavors = {
 	BEEF: 'beef',
@@ -32,7 +26,13 @@ const flavors = {
 	PORK: 'pork',
 }
 
+// Types of tortillas
+const tortillas = {
+	CORN: 'corn',
+	FLOUR: 'flour',
+}
+
 // Current version.  Should be incremented and matched with package.json
 const VERSION = '1.0.0'
 
-export { api, tortillas, flavors, VERSION }
+export { api, flavors, tortillas, VERSION }
