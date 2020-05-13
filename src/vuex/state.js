@@ -5,5 +5,6 @@ import { cssThemes, flavors } from '../constants/globals.constant'
 export default {
 	cssTheme: cssThemes.LIGHT,
 	favorite: flavors.FISH,
+	isLoggedIn: false,
 	tacos: 1,
 }

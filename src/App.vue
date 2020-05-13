@@ -1,5 +1,5 @@
 <template>
-	<!-- This tag turns into either a <default-layout /> or <no-sidebar-layout /> component.
+	<!-- This tag turns into either a <default-layout /> or <fullscreen-layout />, or <topbar-layout /> component.
 	This is based off of setting the meta.layout property on any of the routes in router.js-->
 	<component :is="layout" class="app">
 		<router-view />

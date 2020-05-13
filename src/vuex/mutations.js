@@ -25,7 +25,6 @@ const removeTaco = (state) => {
  * @param {String} theme - Name of the css class that is applied to the body tag in App.vue
  */
 const setCssTheme = (state, theme) => {
-	// Only set a theme if it's a theme that we recognize
 	if (theme) {
 		state.cssTheme = theme
 	} else {
@@ -42,9 +41,19 @@ const setFavoriteTaco = (state, flavor) => {
 	state.favorite = flavor
 }
 
+/**
+ * Sets the status of a user logged into the webapp
+ *
+ * @param {Boolean} isLoggedIn - Whether or not the user is logged in
+ */
+const setIsLoggedIn = (state, isLoggedIn) => {
+	state.isLoggedIn = isLoggedIn
+}
+
 export default {
 	[fn.ADD_TACO]: addTaco,
 	[fn.REMOVE_TACO]: removeTaco,
 	[fn.SET_CSS_THEME]: setCssTheme,
 	[fn.SET_FAVORITE_TACO]: setFavoriteTaco,
+	[fn.SET_IS_LOGGED_IN]: setIsLoggedIn,
 }
