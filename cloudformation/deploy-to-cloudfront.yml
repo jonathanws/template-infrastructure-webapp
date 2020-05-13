@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Continuous deployment for the Vue Starter webapp
+
+Parameters:
+    WebappBucketName:
+        Description: Name of the bucket to store the webapp source
+        MinLength: 1
+        Type: String
+
+Resources:
+    # Webapp source code
+    WebappSourceBucket:
+        Type: AWS::S3::Bucket
+        Properties:
+            AccessControl: Private
+            BucketName: !Ref WebappBucketName
+        DeletionPolicy: Delete
+
+    # Webapp bucket policy
+    S3CloudfrontPolicy:
+        Type: 'AWS::S3::BucketPolicy'
+        Properties:
+            Bucket: !Ref WebappSourceBucket
+            PolicyDocument:
+                Statement:
+                    - Sid: YesCloudFront
+                      Action: s3:GetObject
+                      Effect: Allow
+                      Principal:
+                          CanonicalUser: !GetAtt CloudFrontAccessIdentity.S3CanonicalUserId
+                      Resource: !Sub arn:aws:s3:::${WebappSourceBucket}/*
+
+    # CloudFront Access identify
+    CloudFrontAccessIdentity:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties:
+            CloudFrontOriginAccessIdentityConfig:
+                Comment: !Sub CloudFront Access Identity for ${AWS::StackName}
+
+    # Cloudfront distribution for the webapp
+    WebappDistribution:
+        Type: AWS::CloudFront::Distribution
+        Properties:
+            DistributionConfig:
+                DefaultCacheBehavior:
+                    ForwardedValues:
+                        QueryString: false
+                    TargetOriginId: webappBucket
+                    ViewerProtocolPolicy: https-only
+                Comment: !Sub Distibution for ${WebappBucketName}
+                Enabled: true
+                HttpVersion: http2
+                Origins:
+                    - Id: webappBucket
+                      DomainName: !Sub ${WebappBucketName}.s3.amazonaws.com
+                      S3OriginConfig:
+                          OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${CloudFrontAccessIdentity}
+                ViewerCertificate:
+                    CloudFrontDefaultCertificate: true
+
+Outputs:
+    WebappBucketCloudFrontUrl:
+        Description: CloudFront URL for webapp
+        Value: !Sub https://${WebappDistribution.DomainName}/index.html
