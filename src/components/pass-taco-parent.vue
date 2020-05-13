@@ -96,14 +96,4 @@ button {
 		}
 	}
 }
-// .side-by-side {
-// 	border: 3px solid green;
-// 	display: flex;
-// 	> div {
-// 		flex-basis: 50%;
-// 		&:not(:last-child) {
-// 			margin-right: 16px;
-// 		}
-// 	}
-// }
 </style>

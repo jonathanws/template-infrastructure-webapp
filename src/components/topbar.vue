@@ -8,17 +8,13 @@
 
 		<div class="links">
 			<router-link
-				v-for="(link, index) in links"
+				v-for="({ text, to }, index) in links"
 				tag="div"
 				:key="index"
-				:to="link.to"
+				:to="to"
 				class="link"
-			>{{ link.text }}</router-link>
+			>{{ text }}</router-link>
 		</div>
-
-		<!-- <div class="actions">
-			<button>Login</button>
-		</div>-->
 	</div>
 </template>
 
@@ -28,7 +24,10 @@ import { pages } from '@/constants/paths'
 export default {
 	name: 'topbar',
 	data: () => ({
-		links: [{ text: 'Settings', to: pages.SETTINGS }],
+		links: [
+			{ text: 'Styles', to: pages.STYLES },
+			{ text: 'Modules', to: pages.MODULES },
+		],
 		pages,
 	}),
 }
@@ -39,7 +38,6 @@ export default {
 @import '../styles/_screen-sizes';
 
 .topbar {
-	// border: 1px solid pink;
 	display: flex;
 	align-items: center;
 	height: $topbar-size;
@@ -47,8 +45,8 @@ export default {
 }
 
 .logo {
-		color: $accent-color;
-	}
+	color: $accent-color;
+}
 
 .links {
 	display: flex;
@@ -58,6 +56,9 @@ export default {
 		display: flex;
 		align-items: center;
 		padding: 16px;
+		&:not(:last-of-type) {
+			margin-right: 16px;
+		}
 		// When the link matches the view the user is currently viewing
 		&.router-link-exact-active {
 			$border-size: 6px;
@@ -68,23 +69,8 @@ export default {
 }
 
 .link {
-		&:hover {
-			cursor: pointer;
-		}
+	&:hover {
+		cursor: pointer;
+	}
 }
-
-// @include for-size($tablet-portrait-up) {
-// // 	.links .link {
-// // 		padding: 8px 16px;
-// // 		div {
-// // 			display: block;
-// // 		}
-// // 	}
-// // }
-
-// // @include for-size($tablet-landscape-up) {
-// // 	.logo h2 {
-// // 		display: block;
-// // 	}
-// // }
 </style>

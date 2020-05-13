@@ -87,3 +87,14 @@ div {
 		cursor: pointer;
 	}
 }
+
+textarea.module-arg {
+	border: 1px solid #dddddd;
+	border-radius: $border-radius;
+	width: 100%;
+	font-size: 1rem;
+	padding: 8px;
+	&:focus {
+		border: 1px solid $accent-color;
+	}
+}

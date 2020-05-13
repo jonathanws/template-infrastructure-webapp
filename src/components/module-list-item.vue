@@ -9,7 +9,6 @@
 			<slot />
 			<button :disabled="!buttonEnabled" @click="run()">Run</button>
 		</div>
-
 	</div>
 </template>
 
@@ -43,7 +42,6 @@ export default {
 			this.expanded = !this.expanded
 		},
 		run() {
-			console.log('running')
 			this.$emit('run')
 		},
 	},

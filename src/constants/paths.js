@@ -9,6 +9,7 @@ const path = (str) => `${PREFIX}${str}`
 // When adding a new page, make sure to add a new reference in router.js
 export const pages = {
 	HOME: path(''),
+	MODULES: path('modules'),
 	PAGE_NOT_FOUND: '*', // do not prefix this path
-	SETTINGS: path('settings'),
+	STYLES: path('styles'),
 }

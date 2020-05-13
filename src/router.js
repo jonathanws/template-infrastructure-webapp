@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import homePage from '@/pages/home-page.vue'
 import pageNotFound from '@/pages/page-not-found-page.vue'
 import modulesPage from '@/pages/modules-page'
+import stylesPage from '@/pages/styles-page'
 
 import { pages } from '@/constants/paths.js'
 
@@ -14,6 +15,11 @@ const router = new Router({
 		{
 			path: pages.HOME,
 			component: homePage,
+			meta: { align: 'center' },
+		},
+		{
+			path: pages.STYLES,
+			component: stylesPage,
 			meta: { align: 'center' },
 		},
 		{
