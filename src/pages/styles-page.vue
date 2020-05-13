@@ -1,15 +1,24 @@
 <template>
-	<div class="styles-page">styles</div>
+	<div class="styles-page">
+		<div class="card">styles explanation</div>
+
+		<set-css-theme-button />
+	</div>
 </template>
 
 <script>
+import setCssThemeButton from '@/components/set-css-theme-button'
+
 export default {
 	name: 'stylesPage',
+	components: {
+		setCssThemeButton,
+	},
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/_global-constants';
+@import '../styles/global-styles.scss';
 @import '../styles/_screen-sizes';
 
 .styles-page {

@@ -32,7 +32,14 @@ const tortillas = {
 	FLOUR: 'flour',
 }
 
+// If adding another theme, add a value in TODO
+const cssThemes = {
+	BLUE: 'blue',
+	DARK: 'dark',
+	LIGHT: 'light',
+}
+
 // Current version.  Should be incremented and matched with package.json
 const VERSION = '1.0.0'
 
-export { api, flavors, tortillas, VERSION }
+export { api, cssThemes, flavors, tortillas, VERSION }

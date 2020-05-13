@@ -12,5 +12,6 @@ export default {
 	 */
 	ADD_TACO: 'addTaco',
 	REMOVE_TACO: 'removeTaco',
+	SET_CSS_THEME: 'setCssTheme',
 	SET_FAVORITE_TACO: 'setFavoriteTaco',
 }

@@ -19,6 +19,21 @@ const removeTaco = (state) => {
 }
 
 /**
+ * Sets the theme of the app.  Must be with a value that's defined in globals.constant.js
+ * Must also be set in TODO
+ *
+ * @param {String} theme - Name of the css class that is applied to the body tag in App.vue
+ */
+const setCssTheme = (state, theme) => {
+	// Only set a theme if it's a theme that we recognize
+	if (theme) {
+		state.cssTheme = theme
+	} else {
+		console.error(`CSS theme is not defined in globals.constant.js: ${theme}`)
+	}
+}
+
+/**
  * Set your favorite type of taco
  *
  * @param {String} flavor - fish | beef | pork
@@ -30,5 +45,6 @@ const setFavoriteTaco = (state, flavor) => {
 export default {
 	[fn.ADD_TACO]: addTaco,
 	[fn.REMOVE_TACO]: removeTaco,
+	[fn.SET_CSS_THEME]: setCssTheme,
 	[fn.SET_FAVORITE_TACO]: setFavoriteTaco,
 }

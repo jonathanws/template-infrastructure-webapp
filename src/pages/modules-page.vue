@@ -1,6 +1,12 @@
 <template>
 	<div class="modules-page">
-		<div class="card">Modules explanation</div>
+		<div class="summary">
+			<div>
+				This page shows how you can consume a module to talk to a backend API. To see specifics, look at any of the functions in the
+				<b>taco-functions/</b> directory.
+			</div>
+			<div>Click on any function to run it</div>
+		</div>
 
 		<modules-display />
 	</div>
@@ -24,6 +30,19 @@ export default {
 .modules-page {
 	width: 100%;
 	padding: 16px;
+}
+
+.summary {
+	margin-bottom: 32px;
+	> div:not(:last-child) {
+		margin-bottom: 8px;
+	}
+	b {
+		background-color: #dddddd;
+		padding: 2px 6px;
+		border-radius: $border-radius;
+		font-family: 'Courier New', Courier, monospace;
+	}
 }
 
 @include for-size($tablet-landscape-up) {

@@ -1,6 +1,9 @@
-import { flavors } from '../constants/globals.constant'
+import { cssThemes, flavors } from '../constants/globals.constant'
 
+// All values here are values that are tracked by vuex, our state library
+// Any values that are set here are purely default values.  They are not permanent.
 export default {
+	cssTheme: cssThemes.LIGHT,
 	favorite: flavors.FISH,
 	tacos: 1,
 }
