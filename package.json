@@ -1,5 +1,5 @@
 {
-	"name": "simple-vue",
+	"name": "vue-starter",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",

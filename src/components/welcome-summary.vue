@@ -1,10 +1,7 @@
 <template>
 	<div class="welcome-summary">
 		<div>Welcome to the Vue Starter project!</div>
-		<div>
-			Here you will find examples of many common
-			<a href="https://vuejs.org/" target="_blank">Vue</a> features, along with common network operations
-		</div>
+		<div>This project includes the very basics to give you a starting point for your <a href="https://vuejs.org/" target="_blank">Vue</a> webapp</div>
 	</div>
 </template>
 

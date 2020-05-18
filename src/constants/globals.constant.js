@@ -19,27 +19,7 @@ const api = axios.create({
 	timeout: 30 * SECONDS,
 })
 
-// Taco flavors
-const flavors = {
-	BEEF: 'beef',
-	FISH: 'fish',
-	PORK: 'pork',
-}
-
-// Types of tortillas
-const tortillas = {
-	CORN: 'corn',
-	FLOUR: 'flour',
-}
-
-// If adding another theme, add a value in TODO
-const cssThemes = {
-	BLUE: 'blue',
-	DARK: 'dark',
-	LIGHT: 'light',
-}
-
 // Current version.  Should be incremented and matched with package.json
 const VERSION = '1.0.0'
 
-export { api, cssThemes, flavors, tortillas, VERSION }
+export { api, VERSION }

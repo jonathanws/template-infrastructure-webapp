@@ -6,7 +6,7 @@
 			</router-link>
 		</div>
 
-		<div v-if="isLoggedIn" class="links">
+		<div class="links">
 			<router-link
 				v-for="({ text, to }, index) in links"
 				tag="div"
@@ -23,16 +23,8 @@ import { pages } from '@/constants/paths'
 
 export default {
 	name: 'topbar',
-	computed: {
-		isLoggedIn() {
-			return this.$store.state.isLoggedIn
-		},
-	},
 	data: () => ({
-		links: [
-			{ text: 'Styles', to: pages.STYLES },
-			{ text: 'Modules', to: pages.MODULES },
-		],
+		links: [{ text: 'Home', to: pages.HOME }],
 		pages,
 	}),
 }

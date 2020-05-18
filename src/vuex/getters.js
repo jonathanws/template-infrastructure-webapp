@@ -5,8 +5,8 @@ import fn from './functions'
  *
  * @returns String with the correct pluralization of taco/tacos
  */
-const getTacoText = (state) => (state.tacos == 1 ? 'taco' : 'tacos')
+const getStuffText = (state) => state.stuff.reduce(({ text }) => text)
 
 export default {
-	[fn.GET_TACO_TEXT]: getTacoText,
+	[fn.GET_STUFF_TEXT]: getStuffText,
 }

@@ -2,18 +2,13 @@ export default {
 	/**
 	 * Actions
 	 */
-	LOGIN: 'login',
-	SET_TACO: 'setTaco',
+	SET_STUFF_ASYNC: 'setStuffAsync',
 	/*
 	 * Getters
 	 */
-	GET_TACO_TEXT: 'getTacoText',
+	GET_STUFF_TEXT: 'getStuffText',
 	/*
 	 * Mutations
 	 */
-	ADD_TACO: 'addTaco',
-	REMOVE_TACO: 'removeTaco',
-	SET_CSS_THEME: 'setCssTheme',
-	SET_IS_LOGGED_IN: 'setIsLoggedIn',
-	SET_FAVORITE_TACO: 'setFavoriteTaco',
+	SET_STUFF: 'setStuff',
 }

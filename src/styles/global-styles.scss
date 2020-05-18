@@ -88,13 +88,38 @@ div {
 	}
 }
 
-textarea.module-arg {
-	border: 1px solid #dddddd;
+// Creates a spinner inside of the element that includes it.
+// To use, call something like <div v-if="loading" class="loader-ring" />
+$loader-size: 48px;
+$loader-color: white;
+.loader-ring {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(0, 0, 0, 0.3);
 	border-radius: $border-radius;
-	width: 100%;
-	font-size: 1rem;
-	padding: 8px;
-	&:focus {
-		border: 1px solid $accent-color;
+	&:after {
+		content: ' ';
+		display: block;
+		width: $loader-size;
+		height: $loader-size;
+		border-radius: 50%;
+		border: 6px solid $loader-color;
+		border-color: $loader-color transparent $loader-color transparent;
+		animation: loader-ring 1s linear infinite;
+	}
+}
+
+@keyframes loader-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }
