@@ -1,5 +1,5 @@
 {
-	"name": "vue-starter",
+	"name": "vue-template",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",

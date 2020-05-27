@@ -2,7 +2,7 @@
 	<div class="topbar">
 		<div class="logo link">
 			<router-link :to="pages.HOME" tag="div">
-				<h2>Vue Starter</h2>
+				<h2>Vue Template</h2>
 			</router-link>
 		</div>
 
