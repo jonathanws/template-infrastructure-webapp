@@ -1,0 +1,122 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create a Continuous Integration / Continuous Deployment workflow for your frontend Vue UI
+Parameters:
+    CodeBucketName:
+        Type: String
+        Description: Bucket name used to store your code
+    RepoName:
+        Type: String
+        Description: Name of your CodeComit repository
+
+Resources:
+    # Role used by the CodePipeline
+    PipelineServiceRole:
+        Type: AWS::IAM::Role
+        Properties:
+            RoleName: !Sub '${AWS::StackName}-${AWS::Region}-pipeline-role'
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Effect: Allow
+                      Principal:
+                          Service:
+                              - codepipeline.amazonaws.com
+                              - codebuild.amazonaws.com
+                              - cloudformation.amazonaws.com
+                      Action:
+                          - 'sts:AssumeRole'
+            ManagedPolicyArns:
+                - 'arn:aws:iam::aws:policy/AWSCodePipelineFullAccess'
+                - 'arn:aws:iam::aws:policy/AWSCodeCommitFullAccess'
+                - 'arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess'
+                - 'arn:aws:iam::aws:policy/AWSCloudFormationFullAccess'
+                - 'arn:aws:iam::aws:policy/AmazonS3FullAccess'
+                - 'arn:aws:iam::aws:policy/CloudWatchLogsFullAccess'
+                - 'arn:aws:iam::aws:policy/IAMFullAccess'
+                - 'arn:aws:iam::aws:policy/AWSLambdaFullAccess'
+                - 'arn:aws:iam::aws:policy/AmazonAPIGatewayAdministrator'
+
+    # Codebuild project
+    BuildVueUiTemplate:
+        Type: AWS::CodeBuild::Project
+        Properties:
+            Name: vue-ui-template-build
+            Artifacts:
+                Type: CODEPIPELINE
+            Description: Vue UI build project
+            Environment:
+                Type: LINUX_CONTAINER
+                ComputeType: BUILD_GENERAL1_SMALL
+                Image: aws/codebuild/amazonlinux2-x86_64-standard:1.0
+                ImagePullCredentialsType: CODEBUILD
+                EnvironmentVariables:
+                    - Name: AWS_REGION
+                      Value: !Sub ${AWS::Region}
+                    - Name: CODE_BUCKET
+                      Value: !Ref CodeBucketName
+            ServiceRole: !Ref PipelineServiceRole
+            Source:
+                Type: CODEPIPELINE
+                BuildSpec: 'codepipeline/buildspec.yml'
+            SourceVersion: '/refs/heads/master'
+
+    Pipeline:
+        Type: AWS::CodePipeline::Pipeline
+        Properties:
+            ArtifactStore:
+                Type: S3
+                Location: !Ref CodeBucketName
+            RoleArn: !GetAtt PipelineServiceRole.Arn
+            Stages:
+                - Name: Source
+                  Actions:
+                      - ActionTypeId:
+                            Category: Source
+                            Owner: AWS
+                            Provider: CodeCommit
+                            Version: 1
+                        Configuration:
+                            BranchName: master
+                            PollForSourceChanges: True
+                            RepositoryName: !Ref RepoName
+                        Name: 'source'
+                        OutputArtifacts:
+                            - Name: SourceApp
+                - Name: Build
+                  Actions:
+                      - ActionTypeId:
+                            Category: Build
+                            Owner: AWS
+                            Provider: CodeBuild
+                            Version: 1
+                        Configuration:
+                            ProjectName: !Ref BuildVueUiTemplate
+                        InputArtifacts:
+                            - Name: SourceApp
+                        Name: 'build'
+                        OutputArtifacts:
+                            - Name: BuiltSourceApp
+                - Name: DeployToS3
+                  Actions:
+                      - ActionTypeId:
+                            Category: Deploy
+                            Owner: AWS
+                            Provider: S3
+                            Version: '1'
+                        Configuration:
+                            BucketName: !Ref CodeBucketName
+                            Extract: true
+                        InputArtifacts:
+                            - Name: BuiltSourceApp
+                        Name: CreateVueUiResources
+
+    CodePipelineChangeRule:
+        Type: 'AWS::Events::Rule'
+        Properties:
+            Description: CloudWatch event appears whenever CodeCommit has a change
+            Name: !Sub '${AWS::StackName}-${AWS::Region}-CodePipelineChangeRule'
+            EventPattern: { 'source': ['aws.codecommit', 'aws.codebuild', 'aws.codepipeline'], 'detail-type': ['CodePipeline Action Execution State Change'] }
+            Targets:
+                - Arn: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${AWS::StackName}-${AWS::Region}-CodePipelineCommLambda
+                  Id: !Sub '${AWS::StackName}-${AWS::Region}-CodePipelineChangeEventRule'
+            State: ENABLED
