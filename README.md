@@ -6,7 +6,7 @@ A barebones frontend UI built with Vue.js. Use this as a starting point when wri
 
 **Create a stack in CloudFormation**
 
-In the [Cloudformation Console][cloudformation], create a stack with the `cloudformation/deploy-to-cloudfront.yml` template
+In the [Cloudformation console][cloudformation], create a stack with the `cloudformation/deploy-to-cloudfront.yml` template
 
 **Build your code**
 
@@ -30,9 +30,22 @@ Once your CloudFront distibution has finished allocating (can take up to 15 minu
 
 ## How do I set up CI/CD?
 
-In the [Cloudformation Console][cloudformation], create another stack with the `cloudformation/deploy-ci-cd.yml` template
+**Create another stack in CloudFormation**
 
-The next time code is merged into the `master` branch, you can check [CodePipeline][codebuild] to see your build in progress
+In the [Cloudformation Console][cloudformation], create another stack with the `cloudformation/deploy-ci-cd.yml` template.
+
+**Merge code into the master branch**
+
+The next time code is merged into the `master` branch, you can check [CodePipeline][codebuild] to see your build in progress. Note: You might need to [invalidate the CloudFront cache](#invalidating-cloudfront-cache) to see your changes.
+
+### Invalidating CloudFront cache
+
+-   Go to the [CloudFront console][cloudfront], and select your distibution
+
+-   Click the **Invalidations** tab
+
+-   Enter `/*`, and click **Invalidate**
 
 [cloudformation]: https://aws.amazon.com/cloudformation/
+[cloudfront]: https://console.aws.amazon.com/cloudfront/home
 [codebuild]: https://console.aws.amazon.com/codesuite/codebuild/projects
