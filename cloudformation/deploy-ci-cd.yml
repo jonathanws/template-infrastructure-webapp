@@ -3,7 +3,7 @@ Description: Create a Continuous Integration / Continuous Deployment workflow fo
 Parameters:
     CodeBucketName:
         Type: String
-        Description: Bucket name used to store your code
+        Description: Name of the bucket used to store your code
     RepoName:
         Type: String
         Description: Name of your CodeComit repository
@@ -95,7 +95,7 @@ Resources:
                         OutputArtifacts:
                             - Name: BuiltSourceApp
                 # Moves your project's code to the S3 bucket
-                - Name: 'Deploy To S3'
+                - Name: 'DeployToS3'
                   Actions:
                       - ActionTypeId:
                             Category: Deploy
