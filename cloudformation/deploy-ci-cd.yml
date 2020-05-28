@@ -49,17 +49,13 @@ Resources:
                 ComputeType: BUILD_GENERAL1_SMALL
                 Image: aws/codebuild/amazonlinux2-x86_64-standard:1.0
                 ImagePullCredentialsType: CODEBUILD
-                EnvironmentVariables:
-                    - Name: AWS_REGION
-                      Value: !Sub ${AWS::Region}
-                    - Name: CODE_BUCKET
-                      Value: !Ref CodeBucketName
             ServiceRole: !Ref PipelineServiceRole
             Source:
                 Type: CODEPIPELINE
                 BuildSpec: 'codepipeline/buildspec.yml'
             SourceVersion: '/refs/heads/master'
 
+    # CI/CD Pipeline
     Pipeline:
         Type: AWS::CodePipeline::Pipeline
         Properties:
@@ -68,6 +64,7 @@ Resources:
                 Location: !Ref CodeBucketName
             RoleArn: !GetAtt PipelineServiceRole.Arn
             Stages:
+                # Pulls your newly committed code from CodeCommit
                 - Name: Source
                   Actions:
                       - ActionTypeId:
@@ -82,6 +79,7 @@ Resources:
                         Name: 'source'
                         OutputArtifacts:
                             - Name: SourceApp
+                # Builds your code according to your buildspec
                 - Name: Build
                   Actions:
                       - ActionTypeId:
@@ -96,7 +94,8 @@ Resources:
                         Name: 'build'
                         OutputArtifacts:
                             - Name: BuiltSourceApp
-                - Name: DeployToS3
+                # Moves your project's code to the S3 bucket
+                - Name: 'Deploy To S3'
                   Actions:
                       - ActionTypeId:
                             Category: Deploy
@@ -109,14 +108,3 @@ Resources:
                         InputArtifacts:
                             - Name: BuiltSourceApp
                         Name: CreateVueUiResources
-
-    CodePipelineChangeRule:
-        Type: 'AWS::Events::Rule'
-        Properties:
-            Description: CloudWatch event appears whenever CodeCommit has a change
-            Name: !Sub '${AWS::StackName}-${AWS::Region}-CodePipelineChangeRule'
-            EventPattern: { 'source': ['aws.codecommit', 'aws.codebuild', 'aws.codepipeline'], 'detail-type': ['CodePipeline Action Execution State Change'] }
-            Targets:
-                - Arn: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${AWS::StackName}-${AWS::Region}-CodePipelineCommLambda
-                  Id: !Sub '${AWS::StackName}-${AWS::Region}-CodePipelineChangeEventRule'
-            State: ENABLED
