@@ -9,26 +9,31 @@ Parameters:
 
 Resources:
     # Webapp source code
-    CodeSourceBucket:
+    WebappSourceBucket:
         Type: AWS::S3::Bucket
         Properties:
             AccessControl: Private
             BucketName: !Ref WebappBucketName
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
         DeletionPolicy: Delete
 
     # Webapp bucket policy
     S3CloudfrontPolicy:
         Type: AWS::S3::BucketPolicy
         Properties:
-            Bucket: !Ref CodeSourceBucket
+            Bucket: !Ref WebappSourceBucket
             PolicyDocument:
+        Id: personal-website-bucket-policy
+        Version: 2012-10-17
                 Statement:
                     - Sid: YesCloudFront
                       Action: s3:GetObject
                       Effect: Allow
                       Principal:
                           CanonicalUser: !GetAtt CloudFrontAccessIdentity.S3CanonicalUserId
-                      Resource: !Sub arn:aws:s3:::${CodeSourceBucket}/*
+                      Resource: !Sub arn:aws:s3:::${WebappSourceBucket}/*
 
     # CloudFront Access identify
     CloudFrontAccessIdentity:
