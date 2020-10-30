@@ -19,7 +19,9 @@ A barebones frontend UI built with Vue.js. Use this as a starting point when wri
 aws s3 cp --recursive dist/ s3://<BUCKET-NAME> --profile <AWS-PROFILE>
 ```
 
-Once your CloudFront distibution has finished allocating (can take up to 15 minutes), click the **Outputs** tab when looking at your stack, and click the CloudFront URL to see your deployed webapp
+Once your CloudFront distibution has finished allocating (can take up to 15 minutes), click the **Outputs** tab when looking at your stack, and click the CloudFront URL to see your deployed webapp.
+
+> IMPORTANT: It may take some time for your website to be served at the cloudfront URL, so be patient. Should take a maximum of 20/25 minutes.
 
 ## How do I set up CI/CD?
 
